@@ -7,7 +7,7 @@ use Exporter;
 use vars qw(@ISA @EXPORT);
 
 # These are the supported Qumulo API 'calls'
-@EXPORT = qw(login create_directory create_file delete_file);
+@EXPORT = qw(login create_directory create_file delete_file delete_directory);
 
 # Ignore SSL Verification
 $ENV{PERL_LWP_SSL_VERIFY_HOSTNAME}=0;
@@ -82,5 +82,7 @@ sub delete_file {
     my $escaped_path = uri_escape("$full_path");
     $client->DELETE("/v1/files/$escaped_path")
 }
+
+*delete_directory = \&delete_file;
 
 1;
