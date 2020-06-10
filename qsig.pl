@@ -6,8 +6,13 @@ my $port = '8000';
 my $username = 'admin';
 my $password = 'Admin123';
 
-# There is probably a way smoother way to express this in perl
+my $test_path = '/';
+my $test_directory = 'perl_apitest_99';
+my $test_file = 'file_from_perl';
+
 login($host, $port, $username, $password);
 
-create_directory('perl_apitest_49', '/');
-create_file('file_from_perl', '/perl_apitest_49/');
+create_directory($test_directory, $test_path);
+create_file($test_file, $test_path . $test_directory);
+
+delete_file($test_path . $test_directory . '/' . $test_file);

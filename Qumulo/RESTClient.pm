@@ -7,7 +7,7 @@ use Exporter;
 use vars qw(@ISA @EXPORT);
 
 # These are the supported Qumulo API 'calls'
-@EXPORT = qw(login create_directory create_file);
+@EXPORT = qw(login create_directory create_file delete_file);
 
 # Ignore SSL Verification
 $ENV{PERL_LWP_SSL_VERIFY_HOSTNAME}=0;
@@ -75,6 +75,12 @@ my $createfile_json = <<"END_JSON";
 END_JSON
 	# print "$createfile_json\n";
 	$client->POST("/v1/files/$escaped_path/entries/", $createfile_json);
+}
+
+sub delete_file {
+    my $full_path = shift;
+    my $escaped_path = uri_escape("$full_path");
+    $client->DELETE("/v1/files/$escaped_path")
 }
 
 1;
